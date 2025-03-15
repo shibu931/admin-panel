@@ -24,6 +24,7 @@ const ArticleEditorLayout = ({articleList,setArticleList}) => {
     const params = useSearchParams()
     const isEdit = params.get('editArticle')
     const slug = params.get('slug')
+    const lang = params.get('lang')
     const [loading,setLoading] = useState(false)
     const [articleData, setArticleData] = useState(initialData);
 
@@ -65,7 +66,7 @@ const ArticleEditorLayout = ({articleList,setArticleList}) => {
         async function fetchArticle(){
             try {
                 setLoading(true)
-                const result = await getArticle(slug)
+                const result = await getArticle(slug,lang)
                 if(result.success){
                     setArticleData(result.article)                    
                 }else{

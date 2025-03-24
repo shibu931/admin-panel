@@ -6,7 +6,8 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { toast } from 'sonner'
 import {getArticle, saveArticle} from '@/lib/actions/article.action'
-import FormSkeleton from '../LoadingSkeletons/FormSkeleton'
+import FormSkeleton from '../LoadingSkeletons/ArticleFormSkeleton'
+import ArticleFormSkeleton from '../LoadingSkeletons/ArticleFormSkeleton'
 
 const initialData = {
     title: '',
@@ -93,7 +94,7 @@ const ArticleEditorLayout = ({articleList,setArticleList}) => {
                 {isEdit && <Button asChild variant='outline'><Link href={'/articles'}>New Article</Link></Button>}
             </div>
             <div className='p-4 max-h-[500px] overflow-y-auto relative'>
-                {loading ? <FormSkeleton/> : <EditorForm articleData={articleData} setArticleData={setArticleData} />}
+                {loading ? <ArticleFormSkeleton/> : <EditorForm articleData={articleData} setArticleData={setArticleData} />}
             </div>
             <div className="absolute bottom-0 w-full pe-1 pt-3 border-t border-neutral-700 flex justify-end space-x-2 h-12">
                 <Button onClick={()=>setArticleData(initialData)} variant="destructive" className={'rounded btn-sm'}>

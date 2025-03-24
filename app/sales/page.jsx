@@ -1,8 +1,11 @@
+import SalesLayout from '@/components/SalesPage/SalesLayout'
+import { getAllOrders } from '@/lib/actions/orders.action'
 import React from 'react'
 
-const page = () => {
+const page = async () => {
+  const {orders} = await getAllOrders()  
   return (
-    <div>page</div>
+    <SalesLayout orders={orders}/>
   )
 }
 

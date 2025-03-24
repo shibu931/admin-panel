@@ -21,6 +21,8 @@ import { NavUser } from "./NavUser"
 import { usePathname } from "next/navigation"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
+import { AiOutlineProduct } from "react-icons/ai";
+import { LuContactRound } from "react-icons/lu";
 
 const data = {
     navMain: [
@@ -43,6 +45,16 @@ const data = {
             title: "Reviews",
             url: "/reviews",
             icon: RiShieldStarLine,
+        },
+        {
+            title: "Products",
+            url: "/products",
+            icon: AiOutlineProduct,
+        },
+        {
+            title: "Contact Enquiry",
+            url: "/contact-enquiry",
+            icon: LuContactRound,
         },
     ],
 }

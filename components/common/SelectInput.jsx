@@ -10,9 +10,9 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-export default function SelectInput({label,placeholder,options,width, selected, setSelected}) {
+export default function SelectInput({disable=false, label,placeholder,options,width, selected, setSelected}) {
   return (
-    <Select value={selected} onValueChange={(value)=>setSelected(value)}>
+    <Select value={selected} disabled={disable} onValueChange={(value)=>setSelected(value)}>
       <SelectTrigger className={width}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>

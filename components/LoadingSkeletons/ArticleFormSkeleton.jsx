@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FormSkeleton = () => {
+const ArticleFormSkeleton = () => {
   return (
     <div className="grid lg:grid-cols-2 gap-6">
       {/* Title and Slug row */}
@@ -44,4 +44,4 @@ const FormSkeleton = () => {
   );
 };
 
-export default FormSkeleton;
+export default ArticleFormSkeleton;

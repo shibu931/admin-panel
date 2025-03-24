@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import OrdersList from './OrdersList'
 import SelectInput from '../common/SelectInput'
 import OrderEditorLayout from './OrderEditorLayout'
@@ -32,7 +32,9 @@ const SalesLayout = ({orders}) => {
         </div>
       </div>
       <div className="lg:col-span-7 border rounded py-4 px-2">
+        <Suspense fallback={<p>Loading...</p>}>
         <OrderEditorLayout/>
+        </Suspense>
       </div>
     </div>
   )

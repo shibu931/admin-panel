@@ -52,8 +52,8 @@ const data = {
             icon: AiOutlineProduct,
         },
         {
-            title: "Contact Enquiry",
-            url: "/contact-enquiry",
+            title: "Contact",
+            url: "/contact",
             icon: LuContactRound,
         },
     ],

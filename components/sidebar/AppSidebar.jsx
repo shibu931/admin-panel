@@ -13,7 +13,7 @@ import {
     SidebarMenuItem,
     SidebarRail,
 } from "@/components/ui/sidebar"
-import { GalleryVerticalEnd, LucideClipboardList } from "lucide-react"
+import { GalleryVerticalEnd, Home, LucideClipboardList } from "lucide-react"
 import Link from "next/link"
 import { GrArticle } from "react-icons/gr";
 import { RiShieldStarLine } from "react-icons/ri";
@@ -29,7 +29,7 @@ const data = {
         {
             title: "Home",
             url: "/",
-            icon: LucideClipboardList,
+            icon: Home,
         },
         {
             title: "Sales",
@@ -52,8 +52,8 @@ const data = {
             icon: AiOutlineProduct,
         },
         {
-            title: "Contact",
-            url: "/contact",
+            title: "Queries",
+            url: "/queries",
             icon: LuContactRound,
         },
     ],

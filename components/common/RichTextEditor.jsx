@@ -81,25 +81,123 @@ const RichTextEditor = ({ data, setData, contentKey = 'content' }) => {
   }, [data, editor]);
 
   const tools = [
-    { name: 'Bold', action: () => editor.chain().focus().toggleBold().run(), icon: 'Bold', showLabel: false },
-    { name: 'Italic', action: () => editor.chain().focus().toggleItalic().run(), icon: 'Italic', showLabel: false },
-    { name: 'Underline', action: () => editor.chain().focus().toggleUnderline().run(), icon: 'Underline', showLabel: false },
-    { name: 'Strike', action: () => editor.chain().focus().toggleStrike().run(), icon: 'Strikethrough', showLabel: false },
-    { name: 'Link', action: () => editor.chain().focus().setLink({ href: prompt('Enter URL:') }).run(), icon: 'Link', showLabel: false },
-    { name: 'Heading 1', action: () => editor.chain().focus().setHeading({ level: 1 }).run(), icon: 'Heading', showLabel: false },
-    { name: 'Heading 2', action: () => editor.chain().focus().setHeading({ level: 2 }).run(), icon: 'Heading2', showLabel: false },
-    { name: 'Heading 3', action: () => editor.chain().focus().setHeading({ level: 3 }).run(), icon: 'Heading3', showLabel: false },
-    { name: 'Heading 4', action: () => editor.chain().focus().setHeading({ level: 4 }).run(), icon: 'Heading4', showLabel: false },
-    { name: 'Heading 5', action: () => editor.chain().focus().setHeading({ level: 5 }).run(), icon: 'Heading5', showLabel: false },
-    { name: 'Heading 6', action: () => editor.chain().focus().setHeading({ level: 5 }).run(), icon: 'Heading6', showLabel: false },
-    { name: 'Bullet List', action: () => editor.chain().focus().toggleBulletList().run(), icon: 'List', showLabel: false },
-    { name: 'Ordered List', action: () => editor.chain().focus().toggleOrderedList().run(), icon: 'ListOrdered', showLabel: false },
-    { name: 'Blockquote', action: () => editor.chain().focus().toggleBlockquote().run(), icon: 'Quote', showLabel: false },
-    { name: 'Code Block', action: () => editor.chain().focus().toggleCodeBlock().run(), icon: 'Code', showLabel: false },
-    { name: 'Horizontal Rule', action: () => editor.chain().focus().setHorizontalRule().run(), icon: 'Minus', showLabel: false },
-    { name: 'Align Left', action: () => editor.chain().focus().setTextAlign('left').run(), icon: 'AlignLeft', showLabel: false },
-    { name: 'Align Center', action: () => editor.chain().focus().setTextAlign('center').run(), icon: 'AlignCenter', showLabel: false },
-    { name: 'Align Right', action: () => editor.chain().focus().setTextAlign('right').run(), icon: 'AlignRight', showLabel: false },
+    { 
+        name: 'Bold', 
+        action: () => editor.chain().focus().toggleBold().run(), 
+        icon: 'Bold', 
+        isActive: () => editor?.isActive('bold') || false 
+    },
+    { 
+        name: 'Italic', 
+        action: () => editor.chain().focus().toggleItalic().run(), 
+        icon: 'Italic', 
+        isActive: () => editor?.isActive('italic') || false 
+    },
+    { 
+        name: 'Underline', 
+        action: () => editor.chain().focus().toggleUnderline().run(), 
+        icon: 'Underline', 
+        isActive: () => editor?.isActive('underline') || false 
+    },
+    { 
+        name: 'Strike', 
+        action: () => editor.chain().focus().toggleStrike().run(), 
+        icon: 'Strikethrough', 
+        isActive: () => editor?.isActive('strike') || false 
+    },
+    { 
+        name: 'Link', 
+        action: () => editor.chain().focus().setLink({ href: prompt('Enter URL:') }).run(), 
+        icon: 'Link', 
+        isActive: () => editor?.isActive('link') || false 
+    },
+    // Headings - corrected with level parameter
+    { 
+        name: 'Heading 1', 
+        action: () => editor.chain().focus().setHeading({ level: 1 }).run(), 
+        icon: 'Heading', 
+        isActive: () => editor?.isActive('heading', { level: 1 }) || false 
+    },
+    { 
+        name: 'Heading 2', 
+        action: () => editor.chain().focus().setHeading({ level: 2 }).run(), 
+        icon: 'Heading2', 
+        isActive: () => editor?.isActive('heading', { level: 2 }) || false 
+    },
+    { 
+        name: 'Heading 3', 
+        action: () => editor.chain().focus().setHeading({ level: 3 }).run(), 
+        icon: 'Heading3', 
+        isActive: () => editor?.isActive('heading', { level: 3 }) || false 
+    },
+    { 
+        name: 'Heading 4', 
+        action: () => editor.chain().focus().setHeading({ level: 4 }).run(), 
+        icon: 'Heading4', 
+        isActive: () => editor?.isActive('heading', { level: 4 }) || false 
+    },
+    { 
+        name: 'Heading 5', 
+        action: () => editor.chain().focus().setHeading({ level: 5 }).run(), 
+        icon: 'Heading5', 
+        isActive: () => editor?.isActive('heading', { level: 5 }) || false 
+    },
+    { 
+        name: 'Heading 6', 
+        action: () => editor.chain().focus().setHeading({ level: 6 }).run(), 
+        icon: 'Heading6', 
+        isActive: () => editor?.isActive('heading', { level: 6 }) || false 
+    },
+    // Lists - corrected names
+    { 
+        name: 'Bullet List', 
+        action: () => editor.chain().focus().toggleBulletList().run(), 
+        icon: 'List', 
+        isActive: () => editor?.isActive('bulletList') || false 
+    },
+    { 
+        name: 'Ordered List', 
+        action: () => editor.chain().focus().toggleOrderedList().run(), 
+        icon: 'ListOrdered', 
+        isActive: () => editor?.isActive('orderedList') || false 
+    },
+    { 
+        name: 'Blockquote', 
+        action: () => editor.chain().focus().toggleBlockquote().run(), 
+        icon: 'Quote', 
+        isActive: () => editor?.isActive('blockquote') || false 
+    },
+    { 
+        name: 'Code Block', 
+        action: () => editor.chain().focus().toggleCodeBlock().run(), 
+        icon: 'Code', 
+        isActive: () => editor?.isActive('codeBlock') || false 
+    },
+    { 
+        name: 'Horizontal Rule', 
+        action: () => editor.chain().focus().setHorizontalRule().run(), 
+        icon: 'Minus', 
+        isActive: () => editor?.isActive('horizontalRule') || false 
+    },
+    // Text Alignment - corrected parameters
+    { 
+        name: 'Align Left', 
+        action: () => editor.chain().focus().setTextAlign('left').run(), 
+        icon: 'AlignLeft', 
+        isActive: () => editor?.isActive({ textAlign: 'left' }) || false 
+    },
+    { 
+        name: 'Align Center', 
+        action: () => editor.chain().focus().setTextAlign('center').run(), 
+        icon: 'AlignCenter', 
+        isActive: () => editor?.isActive({ textAlign: 'center' }) || false 
+    },
+    { 
+        name: 'Align Right', 
+        action: () => editor.chain().focus().setTextAlign('right').run(), 
+        icon: 'AlignRight', 
+        isActive: () => editor?.isActive({ textAlign: 'right' }) || false 
+    },
     {
       name: 'Image',
       action: async () => {
@@ -121,7 +219,7 @@ const RichTextEditor = ({ data, setData, contentKey = 'content' }) => {
       icon: 'ImageIcon',
       showLabel: false,
     },
-  ];
+];
 
   if (!editor) {
     return <div>Loading editor...</div>;
@@ -151,7 +249,9 @@ const RichTextEditor = ({ data, setData, contentKey = 'content' }) => {
               type='button'
               key={tool.name}
               onClick={() => handleToolClick(tool.action)} 
-              className="bg-muted/50 hover:bg-muted/75 border border-neutral-700 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 flex items-center" // Added flex items-center
+              className={`border border-neutral-700 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 flex items-center hover:bg-blue-700/50 transition-colors ${
+                tool.isActive?.() ? 'bg-blue-700/50' : 'bg-muted/50'
+              }`}
               title={tool.name}
             >
               <Icon className="w-4 h-4 mr-1" /> 

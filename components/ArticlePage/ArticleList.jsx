@@ -8,7 +8,7 @@ const ArticleList = ({ articleList, handleDeleteClick, handleEditClick }) => {
     return (
         <ul className='max-h-[550px] overflow-y-auto pe-1'>
             {articleList.map((article, index) => (
-                <ArticleListCard key={article.slug} article={article} index={index} handleDeleteClick={handleDeleteClick} handleEditClick={handleEditClick} />
+                <ArticleListCard key={index} article={article} index={index} handleDeleteClick={handleDeleteClick} handleEditClick={handleEditClick} />
             ))}
         </ul>
     )

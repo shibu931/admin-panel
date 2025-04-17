@@ -7,6 +7,7 @@ import { SidebarInset, SidebarProvider } from "../components/ui/sidebar";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/sonner"
 import { websiteName } from "@/lib/constants";
+import { populateUser } from "@/lib/actions/user.action";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,6 +25,7 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
+  
   return (
     <html lang="en">
       <body

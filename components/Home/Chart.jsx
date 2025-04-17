@@ -135,7 +135,6 @@ const chartConfig = {
 
 export function Chart({chartData}) {
   const [timeRange, setTimeRange] = React.useState("90d")
- console.log(chartData);
  
   const filteredData = chartData.filter((item) => {
     const date = new Date(item.date)

@@ -73,8 +73,6 @@ const RichTextEditor = ({ data, setData, contentKey = 'content' }) => {
   });  
   
   useEffect(() => {
-    console.log("Editor ",editor);
-    
     if (editor && data !== editor.getHTML()) {
       editor.commands.setContent(data.content);
     }

@@ -20,6 +20,9 @@ const EditorForm = ({ articleData, setArticleData }) => {
     const setTypeSelected = (value) => {
         setArticleData({ ...articleData, type: value });
     }
+    useEffect(() => {
+        console.log('articleData', articleData)
+    },[articleData])
     return (
         <form action="">
             <div className="grid lg:grid-cols-2 gap-6">

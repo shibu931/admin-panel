@@ -53,7 +53,7 @@ const EditorForm = ({ articleData, setArticleData }) => {
                 </div>
                 <div className="grid col-span-1 w-full max-w-sm items-center gap-1.5">
                     <Label className="font-normal text-gray-200" htmlFor="picture">Article Lang</Label>
-                    <SelectInput label={'Article Lang'} placeholder={'Article Lang'} options={[{ value: 'en', label: 'English' }, { value: 'pl', label: 'Polish' }]} width={'w-full'} selected={articleData.lang} setSelected={setLangSelected} />
+                    <SelectInput label={'Article Lang'} placeholder={'Article Lang'} options={[{ value: 'en', label: 'English' }, { value: 'fr', label: 'French' }]} width={'w-full'} selected={articleData.lang} setSelected={setLangSelected} />
                 </div>
                 <div className="grid col-span-1 w-full max-w-sm items-center gap-1.5">
                     <Label className="font-normal text-gray-200" htmlFor="picture">Article Type</Label>

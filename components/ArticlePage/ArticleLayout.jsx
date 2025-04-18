@@ -12,7 +12,7 @@ const ArticleLayout = ({ articles }) => {
     const [selectedLang, setSelectedLang] = useState(null)
     const [articleList, setArticleList] = useState(articles)
     const options = [{ value: 'all', label: 'All' }, { value: 'blog', label: 'Blog' }, { value: 'article', label: 'Article' }]
-    const langOptions = [{ value: null, label: 'All' }, { value: 'en', label: 'English' }, { value: 'pl', label: 'Polish' }]
+    const langOptions = [{ value: null, label: 'All' }, { value: 'en', label: 'English' }, { value: 'fr', label: 'French' }]
     const router = useRouter()
     async function handleDeleteClick(id){
         try {

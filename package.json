@@ -1,11 +1,11 @@
 {
-  "name": "admin-panel",
+  "name": "admin-panel-med",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p 3001",
+    "start": "next start -p 5001",
     "lint": "next lint"
   },
   "dependencies": {
@@ -26,6 +26,7 @@
     "@tiptap/react": "^2.11.5",
     "@tiptap/starter-kit": "^2.11.5",
     "admin-panel": "file:",
+    "admin-panel-med": "file:",
     "bcryptjs": "^3.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

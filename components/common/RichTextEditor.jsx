@@ -19,7 +19,7 @@ import TextAlign from '@tiptap/extension-text-align'
 import * as LucideReact from 'lucide-react';
 import { uploadImage } from '@/lib/actions/image.action';
 
-const RichTextEditor = ({ data, setData, contentKey = 'content' }) => {  
+const RichTextEditor = ({ data, setData, contentKey = 'content' }) => {
   const [isSticky, setIsSticky] = useState(false);
   const toolbarRef = useRef(null);
   useEffect(() => {
@@ -40,7 +40,7 @@ const RichTextEditor = ({ data, setData, contentKey = 'content' }) => {
       Strike,
       Link.configure({
         HTMLAttributes: {
-          rel: 'blank', 
+          rel: 'blank',
           target: '_blank',
         },
       }),
@@ -62,7 +62,7 @@ const RichTextEditor = ({ data, setData, contentKey = 'content' }) => {
     ],
     content: data?.[contentKey] || '',
     onUpdate: ({ editor }) => {
-      setData(prev => ({ ...prev, [contentKey]: editor.getHTML() })) ;
+      setData(prev => ({ ...prev, [contentKey]: editor.getHTML() }));
     },
     editorProps: {
       attributes: {
@@ -70,131 +70,140 @@ const RichTextEditor = ({ data, setData, contentKey = 'content' }) => {
       }
     },
     immediatelyRender: false,
-  });  
-  
+  });
+
   useEffect(() => {
-    if (editor && data !== editor.getHTML()) {
-      editor.commands.setContent(data.content);
+    if (editor && data?.[contentKey] !== editor.getHTML()) {
+      // Preserve the cursor position when updating content
+      const { from, to } = editor.state.selection
+      editor.commands.setContent(data?.[contentKey] || '', false)
+      editor.commands.setTextSelection({ from, to })
     }
-  }, [data, editor]);
+  }, [data, editor, contentKey])
 
   const tools = [
-    { 
-        name: 'Bold', 
-        action: () => editor.chain().focus().toggleBold().run(), 
-        icon: 'Bold', 
-        isActive: () => editor?.isActive('bold') || false 
+    {
+      name: 'Bold',
+      action: () => editor.chain().focus().toggleBold().run(),
+      icon: 'Bold',
+      isActive: () => editor?.isActive('bold') || false
     },
-    { 
-        name: 'Italic', 
-        action: () => editor.chain().focus().toggleItalic().run(), 
-        icon: 'Italic', 
-        isActive: () => editor?.isActive('italic') || false 
+    {
+      name: 'Italic',
+      action: () => editor.chain().focus().toggleItalic().run(),
+      icon: 'Italic',
+      isActive: () => editor?.isActive('italic') || false
     },
-    { 
-        name: 'Underline', 
-        action: () => editor.chain().focus().toggleUnderline().run(), 
-        icon: 'Underline', 
-        isActive: () => editor?.isActive('underline') || false 
+    {
+      name: 'Underline',
+      action: () => editor.chain().focus().toggleUnderline().run(),
+      icon: 'Underline',
+      isActive: () => editor?.isActive('underline') || false
     },
-    { 
-        name: 'Strike', 
-        action: () => editor.chain().focus().toggleStrike().run(), 
-        icon: 'Strikethrough', 
-        isActive: () => editor?.isActive('strike') || false 
+    {
+      name: 'Strike',
+      action: () => editor.chain().focus().toggleStrike().run(),
+      icon: 'Strikethrough',
+      isActive: () => editor?.isActive('strike') || false
     },
-    { 
-        name: 'Link', 
-        action: () => editor.chain().focus().setLink({ href: prompt('Enter URL:') }).run(), 
-        icon: 'Link', 
-        isActive: () => editor?.isActive('link') || false 
+    {
+      name: 'Link',
+      action: () =>
+        editor.chain().focus().setLink({ href: prompt('Enter URL:') }).run(),
+      icon: 'Link',
+      isActive: () => editor?.isActive('link') || false,
     },
-    // Headings - corrected with level parameter
-    { 
-        name: 'Heading 1', 
-        action: () => editor.chain().focus().setHeading({ level: 1 }).run(), 
-        icon: 'Heading', 
-        isActive: () => editor?.isActive('heading', { level: 1 }) || false 
+    {
+      name: 'Unlink',
+      action: () => {editor.chain().focus().unsetLink().run(); console.log('Current Link State:', editor.getAttributes('link'));},
+      icon: 'Unlink',
+      isActive: () => editor?.isActive('link') || false, // Show as active if there's a link
     },
-    { 
-        name: 'Heading 2', 
-        action: () => editor.chain().focus().setHeading({ level: 2 }).run(), 
-        icon: 'Heading2', 
-        isActive: () => editor?.isActive('heading', { level: 2 }) || false 
+    {
+      name: 'Heading 1',
+      action: () => editor.chain().focus().setHeading({ level: 1 }).run(),
+      icon: 'Heading',
+      isActive: () => editor?.isActive('heading', { level: 1 }) || false
     },
-    { 
-        name: 'Heading 3', 
-        action: () => editor.chain().focus().setHeading({ level: 3 }).run(), 
-        icon: 'Heading3', 
-        isActive: () => editor?.isActive('heading', { level: 3 }) || false 
+    {
+      name: 'Heading 2',
+      action: () => editor.chain().focus().setHeading({ level: 2 }).run(),
+      icon: 'Heading2',
+      isActive: () => editor?.isActive('heading', { level: 2 }) || false
     },
-    { 
-        name: 'Heading 4', 
-        action: () => editor.chain().focus().setHeading({ level: 4 }).run(), 
-        icon: 'Heading4', 
-        isActive: () => editor?.isActive('heading', { level: 4 }) || false 
+    {
+      name: 'Heading 3',
+      action: () => editor.chain().focus().setHeading({ level: 3 }).run(),
+      icon: 'Heading3',
+      isActive: () => editor?.isActive('heading', { level: 3 }) || false
     },
-    { 
-        name: 'Heading 5', 
-        action: () => editor.chain().focus().setHeading({ level: 5 }).run(), 
-        icon: 'Heading5', 
-        isActive: () => editor?.isActive('heading', { level: 5 }) || false 
+    {
+      name: 'Heading 4',
+      action: () => editor.chain().focus().setHeading({ level: 4 }).run(),
+      icon: 'Heading4',
+      isActive: () => editor?.isActive('heading', { level: 4 }) || false
     },
-    { 
-        name: 'Heading 6', 
-        action: () => editor.chain().focus().setHeading({ level: 6 }).run(), 
-        icon: 'Heading6', 
-        isActive: () => editor?.isActive('heading', { level: 6 }) || false 
+    {
+      name: 'Heading 5',
+      action: () => editor.chain().focus().setHeading({ level: 5 }).run(),
+      icon: 'Heading5',
+      isActive: () => editor?.isActive('heading', { level: 5 }) || false
+    },
+    {
+      name: 'Heading 6',
+      action: () => editor.chain().focus().setHeading({ level: 6 }).run(),
+      icon: 'Heading6',
+      isActive: () => editor?.isActive('heading', { level: 6 }) || false
     },
     // Lists - corrected names
-    { 
-        name: 'Bullet List', 
-        action: () => editor.chain().focus().toggleBulletList().run(), 
-        icon: 'List', 
-        isActive: () => editor?.isActive('bulletList') || false 
+    {
+      name: 'Bullet List',
+      action: () => editor.chain().focus().toggleBulletList().run(),
+      icon: 'List',
+      isActive: () => editor?.isActive('bulletList') || false
     },
-    { 
-        name: 'Ordered List', 
-        action: () => editor.chain().focus().toggleOrderedList().run(), 
-        icon: 'ListOrdered', 
-        isActive: () => editor?.isActive('orderedList') || false 
+    {
+      name: 'Ordered List',
+      action: () => editor.chain().focus().toggleOrderedList().run(),
+      icon: 'ListOrdered',
+      isActive: () => editor?.isActive('orderedList') || false
     },
-    { 
-        name: 'Blockquote', 
-        action: () => editor.chain().focus().toggleBlockquote().run(), 
-        icon: 'Quote', 
-        isActive: () => editor?.isActive('blockquote') || false 
+    {
+      name: 'Blockquote',
+      action: () => editor.chain().focus().toggleBlockquote().run(),
+      icon: 'Quote',
+      isActive: () => editor?.isActive('blockquote') || false
     },
-    { 
-        name: 'Code Block', 
-        action: () => editor.chain().focus().toggleCodeBlock().run(), 
-        icon: 'Code', 
-        isActive: () => editor?.isActive('codeBlock') || false 
+    {
+      name: 'Code Block',
+      action: () => editor.chain().focus().toggleCodeBlock().run(),
+      icon: 'Code',
+      isActive: () => editor?.isActive('codeBlock') || false
     },
-    { 
-        name: 'Horizontal Rule', 
-        action: () => editor.chain().focus().setHorizontalRule().run(), 
-        icon: 'Minus', 
-        isActive: () => editor?.isActive('horizontalRule') || false 
+    {
+      name: 'Horizontal Rule',
+      action: () => editor.chain().focus().setHorizontalRule().run(),
+      icon: 'Minus',
+      isActive: () => editor?.isActive('horizontalRule') || false
     },
     // Text Alignment - corrected parameters
-    { 
-        name: 'Align Left', 
-        action: () => editor.chain().focus().setTextAlign('left').run(), 
-        icon: 'AlignLeft', 
-        isActive: () => editor?.isActive({ textAlign: 'left' }) || false 
+    {
+      name: 'Align Left',
+      action: () => editor.chain().focus().setTextAlign('left').run(),
+      icon: 'AlignLeft',
+      isActive: () => editor?.isActive({ textAlign: 'left' }) || false
     },
-    { 
-        name: 'Align Center', 
-        action: () => editor.chain().focus().setTextAlign('center').run(), 
-        icon: 'AlignCenter', 
-        isActive: () => editor?.isActive({ textAlign: 'center' }) || false 
+    {
+      name: 'Align Center',
+      action: () => editor.chain().focus().setTextAlign('center').run(),
+      icon: 'AlignCenter',
+      isActive: () => editor?.isActive({ textAlign: 'center' }) || false
     },
-    { 
-        name: 'Align Right', 
-        action: () => editor.chain().focus().setTextAlign('right').run(), 
-        icon: 'AlignRight', 
-        isActive: () => editor?.isActive({ textAlign: 'right' }) || false 
+    {
+      name: 'Align Right',
+      action: () => editor.chain().focus().setTextAlign('right').run(),
+      icon: 'AlignRight',
+      isActive: () => editor?.isActive({ textAlign: 'right' }) || false
     },
     {
       name: 'Image',
@@ -217,7 +226,7 @@ const RichTextEditor = ({ data, setData, contentKey = 'content' }) => {
       icon: 'ImageIcon',
       showLabel: false,
     },
-];
+  ];
 
   if (!editor) {
     return <div>Loading editor...</div>;
@@ -225,6 +234,7 @@ const RichTextEditor = ({ data, setData, contentKey = 'content' }) => {
 
   const handleToolClick = (action) => {
     action();
+    editor?.chain().focus().run();
   };
 
   return (
@@ -246,14 +256,13 @@ const RichTextEditor = ({ data, setData, contentKey = 'content' }) => {
             <button
               type='button'
               key={tool.name}
-              onClick={() => handleToolClick(tool.action)} 
-              className={`border border-neutral-700 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 flex items-center hover:bg-blue-700/50 transition-colors ${
-                tool.isActive?.() ? 'bg-blue-700/50' : 'bg-muted/50'
-              }`}
+              onClick={() => handleToolClick(tool.action)}
+              className={`border border-neutral-700 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 flex items-center hover:bg-blue-700/50 transition-colors ${tool.isActive?.() ? 'bg-blue-700/50' : 'bg-muted/50'
+                }`}
               title={tool.name}
             >
-              <Icon className="w-4 h-4 mr-1" /> 
-              {tool.showLabel && <span title={tool.name}>{tool.name}</span>} 
+              <Icon className="w-4 h-4 mr-1" />
+              {tool.showLabel && <span title={tool.name}>{tool.name}</span>}
             </button>
           );
         })}

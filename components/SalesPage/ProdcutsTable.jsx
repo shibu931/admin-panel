@@ -32,8 +32,8 @@ const ProdcutsTable = ({ products, total, delivery }) => {
                                 <Link href={'https://tirze-fit.com/product/' + item.slug} target="_blank">{item.productName}</Link>
                             </TableCell>
                             <TableCell>{item.quantity}</TableCell>
-                            <TableCell className="text-right">{item.price} zł</TableCell>
-                            <TableCell className="text-right">{item.price * item.quantity} zł</TableCell>
+                            <TableCell className="text-right">{item.price} €</TableCell>
+                            <TableCell className="text-right">{item.price * item.quantity} €</TableCell>
                         </TableRow>
                     ))
                 }
@@ -41,11 +41,11 @@ const ProdcutsTable = ({ products, total, delivery }) => {
             <TableFooter>
                 <TableRow>
                     <TableCell colSpan={4}>Delivery</TableCell>
-                    <TableCell className={'text-right'}>{delivery}</TableCell>
+                    <TableCell className={'text-right'}>{delivery} €</TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell colSpan={4}>Total</TableCell>
-                    <TableCell className={'text-right'}>{total+delivery}</TableCell>
+                    <TableCell className={'text-right'}>{total+delivery} €</TableCell>
                 </TableRow>
             </TableFooter>
         </Table>

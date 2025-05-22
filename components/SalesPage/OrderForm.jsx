@@ -31,7 +31,7 @@ const OrderForm = ({ disable, orderData, setOrderData }) => {
                 </div>
                 <div className="grid w-full gap-1.5">
                     <Label className="font-normal text-gray-200" htmlFor="delivery-type">Delivery Type</Label>
-                    <SelectInput disable={disable} label={'Delivery Type'} placeholder={'Delivery Type'} options={[{ value: 'inpost', label: 'InPost' }, { value: 'courier', label: 'Courier' }]} width={'w-full'} selected={orderData.deliveryOption} setSelected={setDeliveryOptSelected} />
+                    <SelectInput disable={disable} label={'Delivery Type'} placeholder={'Delivery Type'} options={[{ value: 'inpost', label: 'InPost' }, { value: 'courier', label: 'DHL' }]} width={'w-full'} selected={orderData.deliveryOption} setSelected={setDeliveryOptSelected} />
                 </div>
                 <div className="grid col-span-1 w-full max-w-sm items-center gap-1.5">
                     <Label className="font-normal text-gray-200" htmlFor="orderStatus">Order Status</Label>
